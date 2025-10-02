@@ -116,7 +116,15 @@ document.addEventListener('DOMContentLoaded', function() {
             const targetSection = document.querySelector(targetId);
             
             if (targetSection) {
-                const offsetTop = targetSection.offsetTop - 80; // Account for fixed navbar
+                // Calculate offset based on screen size
+                let offset = 80; // Default for desktop
+                if (window.innerWidth <= 576) {
+                    offset = 60; // Mobile
+                } else if (window.innerWidth <= 768) {
+                    offset = 70; // Tablet
+                }
+                
+                const offsetTop = targetSection.offsetTop - offset;
                 window.scrollTo({
                     top: offsetTop,
                     behavior: 'smooth'
@@ -247,14 +255,25 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Add parallax effect to hero section
-    window.addEventListener('scroll', function() {
-        const scrolled = window.pageYOffset;
-        const heroSection = document.querySelector('.hero-section');
-        if (heroSection) {
-            heroSection.style.transform = `translateY(${scrolled * 0.5}px)`;
+    // Add subtle parallax effect to hero section (disabled on mobile for better performance)
+    function handleParallax() {
+        if (window.innerWidth > 768) { // Only apply parallax on desktop
+            const scrolled = window.pageYOffset;
+            const heroSection = document.querySelector('.hero-section');
+            if (heroSection && scrolled < heroSection.offsetHeight) {
+                heroSection.style.transform = `translateY(${scrolled * 0.3}px)`;
+            }
+        } else {
+            // Reset transform on mobile
+            const heroSection = document.querySelector('.hero-section');
+            if (heroSection) {
+                heroSection.style.transform = 'translateY(0)';
+            }
         }
-    });
+    }
+    
+    window.addEventListener('scroll', handleParallax);
+    window.addEventListener('resize', handleParallax);
     
     // Add counter animation for stats (if you want to add stats later)
     function animateCounters() {

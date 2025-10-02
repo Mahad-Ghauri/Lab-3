@@ -21,6 +21,13 @@ body {
     line-height: 1.6;
     color: var(--text-dark);
     scroll-behavior: smooth;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+/* Ensure all containers don't exceed viewport width */
+.container, .container-fluid {
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 /* Navigation */
@@ -29,6 +36,33 @@ body {
     backdrop-filter: blur(10px);
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
+    z-index: 1050;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0.5rem 0;
+    }
+    
+    .navbar-collapse {
+        background: rgba(40, 62, 81, 0.95);
+        margin-top: 1rem;
+        border-radius: 10px;
+        padding: 1rem;
+    }
+    
+    .navbar-nav {
+        text-align: center;
+    }
+    
+    .nav-link {
+        padding: 0.75rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .nav-link:last-child {
+        border-bottom: none;
+    }
 }
 
 .navbar-brand {
@@ -53,6 +87,15 @@ body {
     position: relative;
     display: flex;
     align-items: center;
+    background-attachment: fixed; /* Better background behavior */
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        background-attachment: scroll; /* Fix mobile background issues */
+        min-height: 100vh;
+        padding-top: 60px; /* Account for mobile navbar */
+    }
 }
 
 .hero-overlay {
@@ -64,6 +107,13 @@ body {
     height: 100%;
     display: flex;
     align-items: center;
+}
+
+@media (max-width: 768px) {
+    .hero-overlay {
+        padding: 2rem 0;
+        align-items: flex-start;
+    }
 }
 
 .hero-title {
@@ -384,15 +434,23 @@ body {
 @media (max-width: 768px) {
     .hero-title {
         font-size: 2.5rem;
+        text-align: center;
     }
     
     .hero-subtitle {
         font-size: 1.2rem;
+        text-align: center;
+    }
+    
+    .hero-description {
+        text-align: center;
+        font-size: 1rem;
     }
     
     .profile-image {
         width: 250px;
         height: 250px;
+        margin-bottom: 2rem;
     }
     
     .section-title {
@@ -406,6 +464,7 @@ body {
     
     .hobby-item {
         min-width: 100%;
+        margin-bottom: 1rem;
     }
     
     .social-links {
@@ -421,20 +480,45 @@ body {
         width: 100%;
         margin-bottom: 1rem;
     }
+    
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+    
+    .contact-info,
+    .contact-form {
+        margin-bottom: 2rem;
+    }
+    
+    .tech-stack .row {
+        text-align: center;
+    }
+    
+    .tech-stack .col-md-6 {
+        margin-bottom: 2rem;
+    }
 }
 
 @media (max-width: 576px) {
     .hero-title {
         font-size: 2rem;
+        text-align: center;
     }
     
     .hero-subtitle {
         font-size: 1rem;
+        text-align: center;
+    }
+    
+    .hero-description {
+        text-align: center;
+        font-size: 0.9rem;
     }
     
     .profile-image {
-        width: 200px;
-        height: 200px;
+        width: 180px;
+        height: 180px;
+        margin-bottom: 1.5rem;
     }
     
     .section-title {
@@ -445,11 +529,82 @@ body {
     .contact-form {
         margin-bottom: 2rem;
     }
+    
+    .navbar-brand {
+        font-size: 1.1rem;
+    }
+    
+    .nav-link {
+        padding: 0.5rem 0;
+    }
+    
+    .hero-buttons .btn {
+        font-size: 0.9rem;
+        padding: 10px 20px;
+    }
+    
+    .card-body {
+        padding: 1.5rem;
+    }
+    
+    .hobby-item {
+        padding: 1.5rem;
+    }
+    
+    .contact-item {
+        font-size: 1rem;
+    }
+    
+    .tech-badge {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+    }
+    
+    /* Improve touch targets for mobile */
+    .btn {
+        min-height: 44px; /* Apple's recommended minimum touch target */
+    }
+    
+    .nav-link {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .social-link {
+        width: 44px;
+        height: 44px;
+    }
+    
+    /* Better spacing for mobile */
+    .py-5 {
+        padding-top: 3rem !important;
+        padding-bottom: 3rem !important;
+    }
+    
+    /* Improve card spacing on mobile */
+    .card {
+        margin-bottom: 1.5rem;
+    }
 }
 
 /* Smooth scrolling offset for fixed navbar */
 section {
     scroll-margin-top: 80px;
+}
+
+/* Fix for mobile navbar height */
+@media (max-width: 768px) {
+    section {
+        scroll-margin-top: 70px;
+    }
+}
+
+@media (max-width: 576px) {
+    section {
+        scroll-margin-top: 60px;
+    }
 }
 
 /* Loading animation */
